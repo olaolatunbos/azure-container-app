@@ -48,17 +48,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Container Instances (ACI)
-        run: |
-          az container create \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name react-app-container \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/react-app:latest \
-            --dns-name-label react-app-${{ github.run_id }} \
-            --cpu 1 \
-            --memory 2 \
-            --ports 3000 \
-            --os-type Linux \
-            --registry-login-server ${{ secrets.ACR_LOGIN_SERVER }} \
-            --registry-username ${{ secrets.ACR_USERNAME }} \
-            --registry-password ${{ secrets.ACR_PASSWORD }}
+      - name: Deploy to Azure Container Apps
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/react-app:latest
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP}}
+          containerAppName: react-app
