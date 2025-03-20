@@ -1,5 +1,3 @@
-# Build and Push React App
-
 ## Overview
 
 This repository automates the process of building, testing, and deploying a React application to Azure Container Apps using GitHub Actions. The workflow ensures that every push and pull request to the `main` branch triggers a CI/CD pipeline.
